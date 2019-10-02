@@ -11,4 +11,8 @@ public class Data {
         String anoS = ano.toString();
         return String.format("%s/%s/%s", diaS, mesS, anoS);
     }
+
+    void imprimirDataFormatada() {
+        System.out.println(obterDataFormatada());
+    }
 }

@@ -13,6 +13,6 @@ public class DataTeste {
         d2.ano = 2019;
 
         System.out.println(d1.obterDataFormatada());
-        System.out.println(d2.obterDataFormatada());
+        d2.imprimirDataFormatada();
     }
 }
