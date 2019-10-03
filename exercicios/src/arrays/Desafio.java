@@ -23,5 +23,7 @@ public class Desafio {
 
         double media = soma / quantidadeNotas;
         System.out.printf("A média é %.2f", media);
+
+        entrada.close();
     }
 }
