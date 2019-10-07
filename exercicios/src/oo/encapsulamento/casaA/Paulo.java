@@ -1,4 +1,4 @@
-package oo.heranca.encapsulamento.casaA;
+package oo.encapsulamento.casaA;
 
 public class Paulo {
 

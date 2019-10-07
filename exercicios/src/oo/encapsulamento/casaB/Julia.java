@@ -1,6 +1,6 @@
-package oo.heranca.encapsulamento.casaB;
+package oo.encapsulamento.casaB;
 
-import oo.heranca.encapsulamento.casaA.Ana;
+import oo.encapsulamento.casaA.Ana;
 
 public class Julia {
     void testeAcessos() {
