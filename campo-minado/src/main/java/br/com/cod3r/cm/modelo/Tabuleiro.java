@@ -42,9 +42,9 @@ public class Tabuleiro {
         Predicate<Campo> minado = Campo::isMinado;
 
         do {
-            minasArmadas = campos.stream().filter(minado).count();
             int aleatorio = (int) (Math.random() * campos.size());
             campos.get(aleatorio).minar();
+            minasArmadas = campos.stream().filter(minado).count();
         } while (minasArmadas < this.minas);
     }
 
@@ -57,7 +57,11 @@ public class Tabuleiro {
         sortearMinas();
     }
 
-    public String toString() {
-        
+//    public String toString() {
+//
+//    }
+
+    public List<Campo> getCampos() {
+        return campos;
     }
 }
