@@ -1,7 +1,10 @@
 package br.com.cod3r.cm.modelo;
 
+import br.com.cod3r.cm.exececao.ExplosaoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,6 +59,57 @@ class TabuleiroTest {
         tabuleiro.reiniciar();
 
         assertFalse(tabuleiro.objetivoAlcancado());
+    }
+
+    @Test
+    void abrirNaoMinado() {
+        Optional<Campo> campo = tabuleiro.getCampos().stream()
+            .filter(c -> !c.isMinado())
+            .findFirst();
+
+        if (campo.isPresent()) {
+            Campo c = campo.get();
+            tabuleiro.abrir(c.getLinha(), c.getColuna());
+
+            assertTrue(c.isAberto());
+        } else {
+            throw new NullPointerException();
+        }
+    }
+
+    @Test
+    void abrirMinado() {
+        Optional<Campo> campo = tabuleiro.getCampos().stream()
+            .filter(Campo::isMinado)
+            .findFirst();
+
+        if (campo.isPresent()) {
+            Campo c = campo.get();
+            assertThrows(ExplosaoException.class, () -> {
+                tabuleiro.abrir(c.getLinha(), c.getColuna());
+            });
+        } else {
+            throw new NullPointerException();
+        }
+    }
+
+    @Test
+    void alternarMarcacao() {
+        Campo campo = tabuleiro.getCampos().get(0);
+        tabuleiro.alternarMarcacao(campo.getLinha(), campo.getColuna());
+
+        assertTrue(campo.isMarcado());
+    }
+
+    @Test
+    void testeToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" x  ? \n");
+        sb.append(" ?  ? \n");
+        Tabuleiro tabuleiro1 = new Tabuleiro(2, 2, 1);
+        tabuleiro1.getCampos().get(0).alternarMarcacao();
+
+        assertEquals(sb.toString(), tabuleiro1.toString());
     }
 
 }
