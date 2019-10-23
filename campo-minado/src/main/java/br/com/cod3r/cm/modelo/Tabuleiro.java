@@ -1,5 +1,7 @@
 package br.com.cod3r.cm.modelo;
 
+import br.com.cod3r.cm.exececao.ExplosaoException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -22,10 +24,15 @@ public class Tabuleiro {
     }
 
     public void abrir(int linha, int coluna) {
-        campos.parallelStream()
-            .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
-            .findFirst()
-            .ifPresent(c -> c.abrir());
+        try {
+            campos.parallelStream()
+                .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
+                .findFirst()
+                .ifPresent(c -> c.abrir());
+        } catch (ExplosaoException e) {
+            campos.forEach(item -> item.setAberto(true));
+            throw e;
+        }
     }
 
     public void alternarMarcacao(int linha, int coluna) {
